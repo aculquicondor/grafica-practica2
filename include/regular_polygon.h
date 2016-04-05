@@ -1,0 +1,26 @@
+#ifndef HELLO_OPENGL_REGULAR_POLYGON_H
+#define HELLO_OPENGL_REGULAR_POLYGON_H
+
+#include <cmath>
+
+#include <glm/vec2.hpp>
+
+#include "geometry.h"
+
+
+class RegularPolygon : public Geometry {
+private:
+    GLsizei sides;
+    glm::vec2 *_data;
+
+public:
+    RegularPolygon(GLsizei sides, float radio=1);
+    virtual ~RegularPolygon();
+
+    virtual GLvoid *data() const;
+    virtual GLsizeiptr data_size() const;
+    virtual GLsizei size() const;
+    virtual GLint dimension() const;
+};
+
+#endif //HELLO_OPENGL_REGULAR_POLYGON_H

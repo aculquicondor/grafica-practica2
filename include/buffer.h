@@ -1,23 +1,25 @@
-#ifndef HELLO_OPENGL_GEOMETRY_H
-#define HELLO_OPENGL_GEOMETRY_H
+#ifndef HELLO_OPENGL_BUFFER_H
+#define HELLO_OPENGL_BUFFER_H
 
 #include "GL/glew.h"
 
 
-class Geometry {
+class Buffer {
 private:
+    GLuint location;
+    bool data_loaded;
+
     void load_data() const;
 
 protected:
     GLuint buffer_id;
-    bool data_loaded;
 
     virtual GLvoid *data() const = 0;
     virtual GLsizeiptr data_size() const = 0;
 
 public:
-    Geometry();
-    virtual ~Geometry();
+    Buffer(GLuint location=0);
+    virtual ~Buffer();
     void activate() const;
 
     virtual GLint dimension() const;

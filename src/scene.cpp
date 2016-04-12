@@ -49,7 +49,6 @@ void Scene::run() {
     do {
         /* drawing */
         glfwSwapBuffers(window);
-        glEnableVertexAttribArray(0);
 
         std::chrono::duration<float> elapsed = std::chrono::high_resolution_clock::now() - initial_time;
         float time = elapsed.count();
@@ -60,7 +59,6 @@ void Scene::run() {
         for (std::size_t i = 0; i < drawables.size(); ++i)
             drawables[i]->draw(camera, time);
 
-        glDisableVertexAttribArray(0);
         /* end drawing */
 
         glfwPollEvents();

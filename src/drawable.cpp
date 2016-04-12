@@ -1,8 +1,8 @@
 #include "drawable.h"
 
 
-Drawable::Drawable(MvpProgram *program, Geometry *geometry, GLenum draw_mode, Drawable *parent) :
-        program(program), geometry(geometry), draw_mode(draw_mode), parent(parent) { }
+Drawable::Drawable(MvpProgram *program, Buffer *geometry, GLenum draw_mode, Buffer *color, Drawable *parent) :
+        program(program), geometry(geometry), color(color), draw_mode(draw_mode), parent(parent) { }
 
 
 Drawable::~Drawable() {
@@ -15,14 +15,23 @@ void Drawable::set_parent(Drawable *parent) {
 
 
 void Drawable::draw(Camera *camera, float time) {
-    geometry->activate();
     program->activate();
+    glEnableVertexAttribArray(0);
+    geometry->activate();
+    if (color != nullptr) {
+        glEnableVertexAttribArray(1);
+        color->activate();
+    }
     glm::mat4 mvp = camera != nullptr ?
                     camera->get_vp() * get_model(time) :
                     get_model(time);
     program->set_mvp(mvp);
     draw_set(time);
     draw_geometry();
+    glDisableVertexAttribArray(0);
+    if (color != nullptr) {
+        glEnableVertexAttribArray(1);
+    }
 }
 
 

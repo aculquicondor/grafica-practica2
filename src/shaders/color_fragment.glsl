@@ -1,9 +1,9 @@
 #version 330 core
 
-uniform vec4 color = vec4(1., 1., 1., 1.);
-out vec4 outputF;
+in vec3 fragmentColor;
+out vec3 color;
 
 void main() {
-    outputF = color;
+    color = fragmentColor;
 }
 

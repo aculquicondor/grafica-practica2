@@ -1,8 +1,8 @@
 #include "gizmo.h"
 
 
-Gizmo::Gizmo(MvpSimpleColorProgram *program) :
-        Geometry(), program(program), Drawable(program, this) {
+Gizmo::Gizmo(MvpProgram *program) :
+        Buffer(0), Drawable(program, this, GL_LINES, new GizmoColor, nullptr) {
 }
 
 
@@ -34,10 +34,32 @@ GLsizei Gizmo::size() const {
 }
 
 
-void Gizmo::draw_geometry() {
-    program->set_color(1, 0, 0);
-    glDrawArrays(GL_LINES, 0, 2);
+const GLfloat GizmoColor::_data[12] = {
+    .5f, 0.f, 0.f,
+    1.f, 0.f, 0.f,
+    0.f, .5f, 0.f,
+    0.f, 1.f, 0.f,
+};
 
-    program->set_color(0, 1, 0);
-    glDrawArrays(GL_LINES, 2, 2);
+
+GizmoColor::GizmoColor() : Buffer(1) {
+}
+
+
+GizmoColor::~GizmoColor() {
+}
+
+
+GLvoid *GizmoColor::data() const {
+    return (GLvoid *)_data;
+}
+
+
+GLsizeiptr GizmoColor::data_size() const {
+    return sizeof _data;
+}
+
+
+GLsizei GizmoColor::size() const {
+    return 4;
 }

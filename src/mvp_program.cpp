@@ -1,5 +1,10 @@
 #include "mvp_program.h"
 
 
-MvpProgram::MvpProgram(const char *vertex_shader, const char *fragment_shader) :
-    Program(vertex_shader, fragment_shader) { }
+MvpProgram::MvpProgram() :
+    Program("shaders/mvp_vertex.glsl", "shaders/color_fragment.glsl") { }
+
+
+void MvpProgram::set_mvp(glm::mat4 mvp) {
+    set_uniform("mvp", mvp);
+}

@@ -1,7 +1,7 @@
 #ifndef HELLO_OPENGL_DRAWABLE_H
 #define HELLO_OPENGL_DRAWABLE_H
 
-#include "geometry.h"
+#include "buffer.h"
 #include "camera.h"
 #include "mvp_program.h"
 
@@ -9,13 +9,13 @@
 class Drawable {
 private:
     MvpProgram *program;
-    Geometry *geometry;
+    Buffer *geometry, *color;
     GLenum draw_mode;
     Drawable *parent;
 
 public:
-    Drawable(MvpProgram *program, Geometry *geometry,
-             GLenum draw_mode=GL_TRIANGLE_STRIP, Drawable *parent=nullptr);
+    Drawable(MvpProgram *program, Buffer *geometry, GLenum draw_mode=GL_TRIANGLE_STRIP,
+             Buffer *color = nullptr, Drawable *parent = nullptr);
 
     void set_parent(Drawable *parent);
 

@@ -5,10 +5,10 @@
 
 #include <glm/vec2.hpp>
 
-#include "geometry.h"
+#include "buffer.h"
 
 
-class RegularPolygon : public Geometry {
+class RegularPolygon : public Buffer {
 private:
     GLsizei sides;
     glm::vec2 *_data;

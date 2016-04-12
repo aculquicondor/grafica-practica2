@@ -1,7 +1,8 @@
 #include "regular_polygon.h"
 
 
-RegularPolygon::RegularPolygon(GLsizei sides, float radio) : sides(sides) {
+RegularPolygon::RegularPolygon(GLsizei sides, float radio) :
+        Buffer(0), sides(sides) {
     _data = new glm::vec2[sides];
     for (GLsizei i = 0; i < sides; ++i) {
         float angle = float(i * 2 * M_PI / sides);

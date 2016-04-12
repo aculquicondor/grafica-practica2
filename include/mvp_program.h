@@ -8,8 +8,8 @@ class MvpProgram : public Program {
 protected:
     MvpProgram *program;
 public:
-    MvpProgram(const char *vertex_shader, const char *fragment_shader);
-    virtual void set_mvp(glm::mat4 mvp) = 0;
+    MvpProgram();
+    void set_mvp(glm::mat4 mvp);
 };
 
 #endif //HELLO_OPENGL_MVP_PROGRAM_H

@@ -11,7 +11,8 @@ set(SOURCE_FILES main.cpp
         ${HEADER_FILES}/program.h program.cpp
         ${HEADER_FILES}/mvp_program.h mvp_program.cpp
         ${HEADER_FILES}/regular_polygon.h regular_polygon.cpp
-        ${HEADER_FILES}/uniform_color.h uniform_color.cpp)
+        ${HEADER_FILES}/uniform_color.h uniform_color.cpp
+        ${HEADER_FILES}/perspective_camera.h perspective_camera.cpp)
 
 add_executable(hello_opengl ${SOURCE_FILES})
 target_link_libraries(hello_opengl ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})

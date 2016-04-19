@@ -3,12 +3,11 @@
 
 #include "drawable.h"
 #include "mvp_program.h"
-#include "uniform_color.h"
 
 
 class Gizmo : public Buffer, public Drawable {
 private:
-    static const GLfloat _data[12];
+    static const GLfloat _data[18];
 
     virtual GLvoid *data() const;
     virtual GLsizeiptr data_size() const;
@@ -21,7 +20,7 @@ public:
 
 class GizmoColor : public Buffer {
 private:
-    static const GLfloat _data[12];
+    static const GLfloat _data[18];
 
     virtual GLvoid *data() const;
     virtual GLsizeiptr data_size() const;

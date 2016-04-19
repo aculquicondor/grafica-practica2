@@ -1,9 +1,10 @@
 #include <iostream>
 
 #include <glm/gtx/transform.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 #include "scene.h"
-#include "ortho_camera.h"
+#include "perspective_camera.h"
 #include "gizmo.h"
 #include "regular_polygon.h"
 #include "uniform_color.h"
@@ -14,15 +15,12 @@ using namespace std;
 
 MvpProgram *program = nullptr;
 Scene *scene = nullptr;
+PerspectiveCamera *camera = nullptr;
 
 
 class MyScene : public Scene {
-private:
-    virtual void before_iteration(float time) {
-        //::program->set_color(1, 1, 1);
-    }
 public:
-    MyScene() : Scene("2da práctica", 800, 600, new OrthoCamera(800, 600, .1, 10)) { }
+    MyScene(Camera *camera) : Scene("3ra práctica", 1000, 700, camera) { }
 };
 
 
@@ -75,10 +73,8 @@ public:
             Drawable(::program, nullptr, GL_TRIANGLE_FAN, nullptr, parent),
             speed(speed), orbit(orbit) { }
     virtual glm::mat4 get_model(float time) {
-        return Drawable::get_model(time) *
-                glm::rotate(time * speed, glm::vec3(0.f, 0.f, 1.f)) *
-                glm::translate(glm::vec3(orbit, 0, 0)) *
-                glm::rotate(-time * speed, glm::vec3(0.f, 0.f, 1.f));
+        glm::vec3 t = glm::rotateZ(glm::vec3(orbit, 0, 0), time * speed);
+        return Drawable::get_model(time) * glm::translate(t);
     }
 };
 
@@ -97,39 +93,19 @@ public:
 };
 
 
-void exercise1() {
-    scene->add(new RotatingSquare);
-}
+class Center : public Drawable {
+public:
+    Center() : Drawable(::program, nullptr) {}
+    /*
+    virtual glm::mat4 get_model(float time) {
+        return Drawable::get_model(time) * glm::translate(glm::vec3(0, 0, -30));
+    }
+     */
+};
 
-
-void exercise2() {
-    Drawable *square = new RotatingSquare,
-            *circle = new OscilatingCircle;
-    square->set_parent(circle);
-    scene->add(square);
-    scene->add(circle);
-}
-
-
-void exercise3() {
-    Drawable *square = new RotatingSquare,
-            *circle = new OscilatingCircle,
-            *hexa = new OrbitingTriangle,
-            *square2 = new OrbitingSquare;
-    square->set_parent(circle);
-    hexa->set_parent(square);
-    square2->set_parent(circle);
-
-    scene->add(square);
-    scene->add(circle);
-    scene->add(hexa);
-    scene->add(square2);
-}
-
-
-void exercise4() {
+void exercise() {
     float vt = .5, vs = .3;
-    Drawable *sun = new Planet(4, vs, glm::vec3(1.f, 1.f, 0.f)),
+    Drawable *sun = new Planet(4, vs, glm::vec3(1.f, 1.f, 0.f), new Center),
             *earth_orbit = new PlanetOrbit(vt, 10, sun),
             *earth = new Planet(2, 3 * vs, glm::vec3(0.f, 0.f, 1.f), earth_orbit),
             *moon_orbit = new PlanetOrbit(2 * vt, 3, earth_orbit),
@@ -145,14 +121,13 @@ void exercise4() {
 
 
 int main() {
-    scene = new MyScene;
+    camera = new PerspectiveCamera(1000, 700, 1.5);
+    scene = new MyScene(camera);
     program = new MvpProgram;
     Drawable *gizmo = new Gizmo(program);
+    camera->look_at(glm::vec3(15, 15, 15), glm::vec3(0, 0, 0), glm::vec3(-.3, -.3, 2.71));
 
-    // exercise1();
-    // exercise2();
-    // exercise3();
-    exercise4();
+    exercise();
 
     scene->add(gizmo);
     scene->run();

@@ -11,11 +11,13 @@ Gizmo::~Gizmo() {
 }
 
 
-const GLfloat Gizmo::_data[12] = {
+const GLfloat Gizmo::_data[18] = {
     0.f, 0.f, 0.f,
     1.f, 0.f, 0.f,
     0.f, 0.f, 0.f,
-    0.f, 1.f, 0.f
+    0.f, 1.f, 0.f,
+    0.f, 0.f, 0.f,
+    0.f, 0.f, 1.f
 };
 
 
@@ -30,15 +32,17 @@ GLsizeiptr Gizmo::data_size() const {
 
 
 GLsizei Gizmo::size() const {
-    return 4;
+    return 6;
 }
 
 
-const GLfloat GizmoColor::_data[12] = {
+const GLfloat GizmoColor::_data[18] = {
     .5f, 0.f, 0.f,
     1.f, 0.f, 0.f,
     0.f, .5f, 0.f,
     0.f, 1.f, 0.f,
+    0.f, .0f, 5.f,
+    0.f, .0f, 1.f,
 };
 
 
@@ -61,5 +65,5 @@ GLsizeiptr GizmoColor::data_size() const {
 
 
 GLsizei GizmoColor::size() const {
-    return 4;
+    return 6;
 }

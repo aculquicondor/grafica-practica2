@@ -1,8 +1,8 @@
 #include "gizmo.h"
 
 
-Gizmo::Gizmo(MvpProgram *program) :
-        Buffer(0), Drawable(program, this, GL_LINES, new GizmoColor, nullptr) {
+Gizmo::Gizmo(MvpProgram *program, Drawable *parent) :
+        Buffer(0), Drawable(program, this, GL_LINES, new GizmoColor, parent) {
 }
 
 

@@ -20,12 +20,15 @@ private:
 
 protected:
     virtual void before_iteration(float time);
+    virtual void process_events();
 
 public:
     Scene(const char *title, int width, int height, Camera *camera);
     virtual ~Scene();
     void run();
     void add(Drawable *drawable);
+    int key_state(int key) const;
+    std::pair<double, double> cursor_pos() const;
 };
 
 #endif //HELLO_OPENGL_GLFW_APPLICATION_H

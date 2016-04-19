@@ -13,7 +13,7 @@ private:
     virtual GLsizeiptr data_size() const;
     virtual GLsizei size() const;
 public:
-    Gizmo(MvpProgram *program);
+    Gizmo(MvpProgram *program, Drawable *parent = nullptr);
     virtual ~Gizmo();
 };
 

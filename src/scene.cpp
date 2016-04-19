@@ -47,7 +47,6 @@ void Scene::run() {
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
     do {
-        /* drawing */
         glfwSwapBuffers(window);
 
         std::chrono::duration<float> elapsed = std::chrono::high_resolution_clock::now() - initial_time;
@@ -59,13 +58,27 @@ void Scene::run() {
         for (std::size_t i = 0; i < drawables.size(); ++i)
             drawables[i]->draw(camera, time);
 
-        /* end drawing */
-
         glfwPollEvents();
-    } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
-             glfwWindowShouldClose(window) == 0);
+        process_events();
+    } while (glfwWindowShouldClose(window) == 0);
 }
+
 
 void Scene::add(Drawable *drawable) {
     drawables.push_back(drawable);
 }
+
+
+void Scene::process_events() {
+}
+
+
+int Scene::key_state(int key) const {
+    return glfwGetKey(window, key);
+}
+
+std::pair<double, double> Scene::cursor_pos() const {
+    std::pair<double, double> pos;
+    glfwGetCursorPos(window, &pos.first, &pos.second);
+    return pos;
+};
